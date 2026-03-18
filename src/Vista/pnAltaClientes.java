@@ -4,17 +4,23 @@
  */
 package Vista;
 
-/**
- *
- * @author dam
- */
+import Datos.Cliente;
+import Datos.Empresa;
+import javax.swing.JOptionPane;
+
+
 public class pnAltaClientes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form vntRegistro
-     */
-    public pnAltaClientes() {
+private Empresa miEmpresa;
+    public pnAltaClientes(Empresa empresa) {
         initComponents();
+        this.miEmpresa = empresa; // Guardamos los datos de la empresa
+        
+        // 2. Configuramos las 3 opciones del JComboBox
+        comboSubscripcion.removeAllItems(); // Limpiamos lo que trae por defecto (Item 1, Item 2...)
+        comboSubscripcion.addItem("Básica");
+        comboSubscripcion.addItem("Estándar");
+        comboSubscripcion.addItem("Premium");
     }
 
     /**
@@ -121,11 +127,42 @@ public class pnAltaClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        // Simplemente limpiamos los campos si el usuario se arrepiente
+        txtDni.setText("");
+        txtNombre.setText("");
+        comboSubscripcion.setSelectedIndex(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        // TODO add your handling code here:
+        String dni = txtDni.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        
+        // Obtenemos la opción seleccionada en el JComboBox
+        String subscripcion = comboSubscripcion.getSelectedItem().toString();
+
+        // 4. Validamos que no estén vacíos
+        if (dni.isEmpty() || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, rellene el DNI y el Nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salimos del método para no guardar datos vacíos
+        }
+
+        // 5. Comprobamos si el cliente ya existe en el HashMap de la Empresa
+        if (miEmpresa.getMapaClientes().containsKey(dni)) {
+            JOptionPane.showMessageDialog(this, "El cliente con DNI " + dni + " ya está registrado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 6. Creamos el nuevo cliente y lo guardamos en el HashMap
+        Cliente nuevoCliente = new Cliente(dni, nombre, subscripcion);
+        miEmpresa.getMapaClientes().put(dni, nuevoCliente);
+
+        // Mostramos mensaje de éxito
+        JOptionPane.showMessageDialog(this, "Cliente guardado .");
+
+        // Limpiamos los campos para poder introducir otro cliente
+        txtDni.setText(""); 
+        txtNombre.setText("");
+        comboSubscripcion.setSelectedIndex(0);
     }//GEN-LAST:event_btnGrabarActionPerformed
 
 

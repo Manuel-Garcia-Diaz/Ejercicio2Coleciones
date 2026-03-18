@@ -159,34 +159,38 @@ import javax.swing.JOptionPane;
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-            String usuario = txtUsuario.getText();
-    String contra = new String(pwdContra.getPassword());
 
-    Usuario u = empresa.getMapaUsuarios().get(usuario);
+        String usuario = txtUsuario.getText();
+        String contra = new String(pwdContra.getPassword());
 
-    if (u != null) {
+        Usuario u = empresa.getMapaUsuarios().get(usuario);
 
-        String contraHash = Generador.getSHA(contra);
+        if (u != null) {
 
-        if (contraHash.equals(u.getContra())) {
+            String contraHash = Generador.getSHA(contra);
 
-            JOptionPane.showMessageDialog(this,
-                    "Login correcto");
+            if (contraHash.equals(u.getContra())) {
 
-            Operaciones op = new Operaciones();
-            op.setVisible(true);
+                JOptionPane.showMessageDialog(this,
+                        "Login correcto");
 
-            this.dispose();
+                // --- ESTE ES EL CAMBIO ---
+                // Le pasamos 'this.empresa' (la variable que tiene el Login) a la ventana Operaciones
+                Operaciones op = new Operaciones(this.empresa);
+                op.setVisible(true);
+
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Contraseña incorrecta");
+            }
 
         } else {
             JOptionPane.showMessageDialog(this,
-                    "Contraseña incorrecta");
+                    "El usuario no existe");
         }
-
-    } else {
-        JOptionPane.showMessageDialog(this,
-                "El usuario no existe");
-    }
+    
                                    
 
     }//GEN-LAST:event_btnLoginActionPerformed

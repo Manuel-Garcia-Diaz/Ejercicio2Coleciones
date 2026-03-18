@@ -4,17 +4,18 @@
  */
 package Vista;
 
+import Datos.Empresa;
+
 /**
  *
  * @author dam
  */
 public class Operaciones extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Operaciones
-     */
-    public Operaciones() {
+    private Empresa empresa;
+    public Operaciones(Empresa empresa) {
         initComponents();
+        this.empresa = empresa; // Guardamos los datos de la empresa que vienen del Login= empresa;
     }
 
     /**
@@ -83,32 +84,34 @@ public class Operaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuItemAltaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAltaClientesActionPerformed
-                                                         
+                                                                                                              
         
-        pnAltaClientes panelAlta = new pnAltaClientes();
+        // 3. Ahora SÍ le pasamos this.empresa a tu panel
+        pnAltaClientes panelAlta = new pnAltaClientes(this.empresa);
         
-        //  Uso setBounds para  las dimensiones y posición exacta
-        // Tomamos el ancho y alto actual del JFrame (la ventana principal)
+        // Uso setBounds para las dimensiones y posición exacta
         panelAlta.setBounds(0, 0, this.getWidth(), this.getHeight());
         
-        //  el panel sea visible
+        // el panel sea visible
         panelAlta.setVisible(true);
         
-        // quitamos cualquier panel que estuviera ante)
+        // quitamos cualquier panel que estuviera antes
         this.getContentPane().removeAll();
         
-        //  layout simple que ocupa toda la pantalla
+        // layout simple que ocupa toda la pantalla
         this.getContentPane().setLayout(new java.awt.BorderLayout());
         
-        //  Añadir el panel de Alta de Clientes en el centro
+        // Añadir el panel de Alta de Clientes en el centro
         this.getContentPane().add(panelAlta, java.awt.BorderLayout.CENTER);
         
-        //  Refrescamos toda la jerarquía de componentes de la ventana
+        // Refrescamos toda la jerarquía de componentes de la ventana
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
         
-        //  Esto fuerza a Java Swing a actualizar todo el árbol visual
+        // Esto fuerza a Java Swing a actualizar todo el árbol visual
         javax.swing.SwingUtilities.updateComponentTreeUI(this);
+    
+    
     
     }//GEN-LAST:event_MenuItemAltaClientesActionPerformed
 

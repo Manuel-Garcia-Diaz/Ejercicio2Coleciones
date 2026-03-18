@@ -16,7 +16,7 @@ public class Cliente {
     String Subscripcion;
  //crear array list Entrenamiento
 //Entrenamiento --> Fecha, codigo Rutina , peso , Series , Repeticiones .
-    //(Esta clase) presencia o array list de clientes que estan dentro del gym en (clase emresa)
+    //(Esta clase) presencia o array list de clientes que estan dentro del gym en (clase emresa) 
     ArrayList<Entrenamiento>Entrenamientos;
     
     public Cliente(String DNI, String Nombre, String Subscripcion) {

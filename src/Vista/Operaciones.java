@@ -83,7 +83,33 @@ public class Operaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuItemAltaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAltaClientesActionPerformed
-        // TODO add your handling code here:
+                                                         
+        
+        pnAltaClientes panelAlta = new pnAltaClientes();
+        
+        //  Uso setBounds para  las dimensiones y posición exacta
+        // Tomamos el ancho y alto actual del JFrame (la ventana principal)
+        panelAlta.setBounds(0, 0, this.getWidth(), this.getHeight());
+        
+        //  el panel sea visible
+        panelAlta.setVisible(true);
+        
+        // quitamos cualquier panel que estuviera ante)
+        this.getContentPane().removeAll();
+        
+        //  layout simple que ocupa toda la pantalla
+        this.getContentPane().setLayout(new java.awt.BorderLayout());
+        
+        //  Añadir el panel de Alta de Clientes en el centro
+        this.getContentPane().add(panelAlta, java.awt.BorderLayout.CENTER);
+        
+        //  Refrescamos toda la jerarquía de componentes de la ventana
+        this.getContentPane().revalidate();
+        this.getContentPane().repaint();
+        
+        //  Esto fuerza a Java Swing a actualizar todo el árbol visual
+        javax.swing.SwingUtilities.updateComponentTreeUI(this);
+    
     }//GEN-LAST:event_MenuItemAltaClientesActionPerformed
 
     private void MenuItemManteRutinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemManteRutinasActionPerformed
@@ -93,26 +119,26 @@ public class Operaciones extends javax.swing.JFrame {
     private void MenuItemHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemHistorialActionPerformed
                                                          
                                                         
-        // 1. Creamos la instancia de tu panel
+        //  Creamos la instancia de tu panel
         pnHistorial panelHistorial = new pnHistorial();
         
-        // 2. Usamos setBounds para forzar sus dimensiones y posición exacta
-        // Tomamos el ancho y alto actual del JFrame (la ventana principal)
+        //  Usamos setBounds para forzar sus dimensiones y posición exacta
+        // cojemos el ancho y alto actual del JFrame (la ventana principal)
         panelHistorial.setBounds(0, 0, this.getWidth(), this.getHeight());
         
-        // 3. Forzamos que el panel sea visible
+        // Forzamos que el panel sea visible
         panelHistorial.setVisible(true);
         
-        // 4. Limpiamos el JFrame
+        //  Limpiamos el JFrame
         this.getContentPane().removeAll();
         
-        // 5. Aplicamos un layout simple que ocupa toda la pantalla
+        //  Aplicamos un layout simple que ocupa toda la pantalla
         this.getContentPane().setLayout(new java.awt.BorderLayout());
         
-        // 6. Añadimos el panel en el centro
+        //  Añadimos el panel en el centro
         this.getContentPane().add(panelHistorial, java.awt.BorderLayout.CENTER);
         
-        // 7. Refrescamos toda la jerarquía de componentes de la ventana
+        //  Refrescamos toda la jerarquía de componentes de la ventana
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
         

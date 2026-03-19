@@ -25,6 +25,7 @@ public class Operaciones extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuOperraciones = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         MenuItemAltaClientes = new javax.swing.JMenuItem();
         MenuItemManteRutinas = new javax.swing.JMenuItem();
         MenuItemHistorial = new javax.swing.JMenuItem();
@@ -33,6 +34,14 @@ public class Operaciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         MenuOperraciones.setText("Operaciones");
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        MenuOperraciones.add(jMenuItem1);
 
         MenuItemAltaClientes.setText("Alta Clientes");
         MenuItemAltaClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +177,31 @@ public class Operaciones extends javax.swing.JFrame {
     
     }//GEN-LAST:event_MenuItemHistorialActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+                //  Creamos la instancia de tu panel
+        pnAforo panelAforo = new pnAforo();
+        
+        
+        panelAforo.setBounds(0, 0, this.getWidth(), this.getHeight());
+        panelAforo.setVisible(true);
+        
+        //  Limpiamos el JFrame
+        this.getContentPane().removeAll();
+        
+        //  Aplicamos un layout simple que ocupa toda la pantalla
+        this.getContentPane().setLayout(new java.awt.BorderLayout());
+        
+        //  Añadimos el panel en el centro
+        this.getContentPane().add(panelAforo, java.awt.BorderLayout.CENTER);
+        
+        //  Refrescamos toda la jerarquía de componentes de la ventana
+        this.getContentPane().revalidate();
+        this.getContentPane().repaint();
+        
+        // Opcional: Esto fuerza a Java Swing a actualizar todo el árbol visual
+        javax.swing.SwingUtilities.updateComponentTreeUI(this);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -180,5 +214,6 @@ public class Operaciones extends javax.swing.JFrame {
     private javax.swing.JMenu MenuOperraciones;
     private javax.swing.JMenu MenuSalir;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

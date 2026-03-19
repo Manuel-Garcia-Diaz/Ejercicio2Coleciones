@@ -77,6 +77,11 @@ public class pnRutina extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Codigo");
 
@@ -158,7 +163,7 @@ public class pnRutina extends javax.swing.JFrame {
         String nivel = txtNivel.getText();
         String descripcion = txtaDescripcion.getText();
 
-        // 2. Validar que no estén vacíos
+        //  Validar que no estén vacíos
         if(codigo.isEmpty() || nombre.isEmpty() || nivel.isEmpty() || descripcion.isEmpty()){
             JOptionPane.showMessageDialog(this, "Por favor, rellena todos los campos.");
             return;
@@ -177,22 +182,26 @@ public class pnRutina extends javax.swing.JFrame {
         txtNombre.setText("");
         txtNivel.setText("");
         txtaDescripcion.setText("");
-    }                                          
+                                              
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-                                                    
-        // Vaciamos los textos
+   
+    
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtCodigo.setText("");
         txtNombre.setText("");
         txtNivel.setText("");
         txtaDescripcion.setText("");
         
+        // Volvemos a mostrar la ventana principal
+        if (this.ventanaPadre != null) {
+            this.ventanaPadre.setVisible(true);
+        }
         
-        ventanaPadre.setVisible(true);
-                                             
-        this.setVisible(false);
-    
-    }//GEN-LAST:event_btnAceptarActionPerformed
+        // Destruimos la ventana actual para liberar memoria (es mejor que setVisible(false))
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

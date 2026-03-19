@@ -140,19 +140,19 @@ private Empresa miEmpresa;
         // Obtenemos la opción seleccionada en el JComboBox
         String subscripcion = comboSubscripcion.getSelectedItem().toString();
 
-        // 4. Validamos que no estén vacíos
+        //  Validamos que no estén vacíos
         if (dni.isEmpty() || nombre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, rellene el DNI y el Nombre.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salimos del método para no guardar datos vacíos
         }
 
-        // 5. Comprobamos si el cliente ya existe en el HashMap de la Empresa
+        //  Comprobamos si el cliente ya existe en el HashMap de la Empresa
         if (miEmpresa.getMapaClientes().containsKey(dni)) {
             JOptionPane.showMessageDialog(this, "El cliente con DNI " + dni + " ya está registrado.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // 6. Creamos el nuevo cliente y lo guardamos en el HashMap
+        //  Creamos el nuevo cliente y lo guardamos en el HashMap
         Cliente nuevoCliente = new Cliente(dni, nombre, subscripcion);
         miEmpresa.getMapaClientes().put(dni, nuevoCliente);
 

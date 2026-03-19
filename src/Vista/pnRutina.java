@@ -4,18 +4,22 @@
  */
 package Vista;
 
-/**
- *
- * @author dam
- */
-public class pnRutina extends javax.swing.JFrame {
+import Datos.Empresa;
+import Datos.Rutina;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form pnRutina
-     */
-    public pnRutina() {
+public class pnRutina extends javax.swing.JFrame { 
+
+    private Empresa empresa; // Creamos la variable para almacenar la empresa
+
+    // Modificamos el constructor para recibir Empresa
+    public pnRutina(Empresa empresa) {
         initComponents();
+        this.empresa = empresa; // Guardamos la instancia de empresa
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); // Para que al cerrar no cierre todo el programa
     }
+    // ...resto del código
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,6 +62,11 @@ public class pnRutina extends javax.swing.JFrame {
         txtNombre.setText("jTextField2");
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -133,41 +142,48 @@ public class pnRutina extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+                                                 
+        //  Obtener el texto de los campos
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        String nivel = txtNivel.getText();
+        String descripcion = txtaDescripcion.getText();
+
+        // 2. Validar que no estén vacíos
+        if(codigo.isEmpty() || nombre.isEmpty() || nivel.isEmpty() || descripcion.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Por favor, rellena todos los campos.");
+            return;
+        }
+
+        // 3. Crear el objeto Rutina
+        Rutina nuevaRutina = new Rutina(codigo, nombre, nivel, descripcion);
+
+        // 4. Guardarlo en el HashMap de Empresa (usaremos el Nombre como clave, tal como en tu método cargarRutina)
+        this.empresa.getMapaRutina().put(nombre, nuevaRutina);
+
+        // 5. Avisar al usuario y limpiar los campos
+        JOptionPane.showMessageDialog(this, "Rutina guardada correctamente.");
+        
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtNivel.setText("");
+        txtaDescripcion.setText("");
+    }                                          
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // Limpiar campos si el usuario se arrepiente
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtNivel.setText("");
+        txtaDescripcion.setText("");
+    
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(pnRutina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(pnRutina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(pnRutina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(pnRutina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new pnRutina().setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

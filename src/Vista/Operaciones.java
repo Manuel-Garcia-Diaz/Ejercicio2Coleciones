@@ -125,11 +125,13 @@ public class Operaciones extends javax.swing.JFrame {
         javax.swing.SwingUtilities.updateComponentTreeUI(this);*/
                                                           
         // Le pasamos this.empresa para que la nueva ventana tenga acceso a los datos
-        pnRutina ventanaRutina = new pnRutina(this.empresa);
+        pnRutina ventanaRutina = new pnRutina(this.empresa,this);
         
         // La centramos y la hacemos visible
         ventanaRutina.setLocationRelativeTo(null); 
         ventanaRutina.setVisible(true);
+        
+        this.setVisible(false); // ocultamos el panel 
     
     
     }//GEN-LAST:event_MenuItemManteRutinasActionPerformed

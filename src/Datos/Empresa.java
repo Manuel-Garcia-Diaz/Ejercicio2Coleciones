@@ -43,6 +43,9 @@ public void cargarRutina() {
                 new Usuario(Generador.getSHA("clave456"), 2));
         mapaUsuarios.put("Gerente",
                 new Usuario(Generador.getSHA("clave789"), 3));
+        
+        mapaUsuarios.put("p",
+                new Usuario(Generador.getSHA("p"), 3));
     }
     
     

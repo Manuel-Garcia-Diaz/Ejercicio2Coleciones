@@ -11,13 +11,21 @@ import javax.swing.JOptionPane;
 public class pnRutina extends javax.swing.JFrame { 
 
     private Empresa empresa; // Creamos la variable para almacenar la empresa
-
+    private Operaciones ventanaPadre; // Enlace para la ventana operaciones
     // Modificamos el constructor para recibir Empresa
-    public pnRutina(Empresa empresa) {
+    public pnRutina(Empresa empresa,Operaciones ventanaPadre) {
+   
+
+    // 2. Reemplazamos el constructor public pnRutina() por este:
+
         initComponents();
-        this.empresa = empresa; // Guardamos la instancia de empresa
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); // Para que al cerrar no cierre todo el programa
+        this.empresa = empresa;
+        this.ventanaPadre = ventanaPadre; // Guardamos quién nos llamó
+        
+        // Cambiamos el comportamiento de la X de la ventana para que no cierre todo
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
+    
     // ...resto del código
    
 
@@ -159,7 +167,7 @@ public class pnRutina extends javax.swing.JFrame {
         // 3. Crear el objeto Rutina
         Rutina nuevaRutina = new Rutina(codigo, nombre, nivel, descripcion);
 
-        // 4. Guardarlo en el HashMap de Empresa (usaremos el Nombre como clave, tal como en tu método cargarRutina)
+        // 4. Guarda en el HashMap de Empresa (usamos el Nombre como clave)
         this.empresa.getMapaRutina().put(nombre, nuevaRutina);
 
         // 5. Avisar al usuario y limpiar los campos
@@ -172,11 +180,17 @@ public class pnRutina extends javax.swing.JFrame {
     }                                          
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // Limpiar campos si el usuario se arrepiente
+                                                    
+        // Vaciamos los textos
         txtCodigo.setText("");
         txtNombre.setText("");
         txtNivel.setText("");
         txtaDescripcion.setText("");
+        
+        
+        ventanaPadre.setVisible(true);
+                                             
+        this.setVisible(false);
     
     }//GEN-LAST:event_btnAceptarActionPerformed
 

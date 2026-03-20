@@ -16,7 +16,14 @@ import javax.swing.JOptionPane;
 
     public Login() {
         initComponents();   // Esto lo genera NetBeans
-       empresa.cargarUsuarios();
+       
+       this.setTitle("SmartFit - Panel de Gestión"); // Requisito PDF
+    this.setLocationRelativeTo(null);
+    
+    // Inicializamos datos
+    this.empresa = empresa;
+    empresa.cargarUsuarios();
+    empresa.cargarRutina();
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -174,7 +181,7 @@ import javax.swing.JOptionPane;
                 JOptionPane.showMessageDialog(this,
                         "Login correcto");
 
-                // --- ESTE ES EL CAMBIO ---
+              
                 // Le pasamos 'this.empresa' (la variable que tiene el Login) a la ventana Operaciones
                 Operaciones op = new Operaciones(this.empresa);
                 op.setVisible(true);

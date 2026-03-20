@@ -63,7 +63,7 @@ private Empresa miEmpresa;
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel3.setText("ALTA CLIENTES");
 
-        comboSubscripcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboSubscripcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Basica", "Intermedi", "Premium" }));
 
         jLabel4.setText("Subscripcion");
 

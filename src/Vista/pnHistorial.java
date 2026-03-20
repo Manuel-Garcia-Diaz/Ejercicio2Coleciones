@@ -13,6 +13,7 @@ public class pnHistorial extends javax.swing.JPanel {
     /**
      * Creates new form pnHistorial
      */
+    //cada vez que metamos un entrenamiento asignamos horas .
     public pnHistorial() {
         initComponents();
         

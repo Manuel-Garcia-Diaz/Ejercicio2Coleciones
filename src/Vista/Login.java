@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
     public Login() {
         initComponents();   // Esto lo genera NetBeans
        
-       this.setTitle("SmartFit - Panel de Gestión"); // Requisito PDF
+     
     this.setLocationRelativeTo(null);
     
     // Inicializamos datos

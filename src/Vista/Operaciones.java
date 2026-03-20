@@ -14,6 +14,7 @@ public class Operaciones extends javax.swing.JFrame {
 
     private Empresa empresa;
     public Operaciones(Empresa empresa) {
+        
         initComponents();
         this.empresa = empresa; // Guardamos los datos de la empresa que vienen del Login= empresa;
     }
@@ -32,10 +33,11 @@ public class Operaciones extends javax.swing.JFrame {
         MenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SmartFit - Panel de Gestión");
 
         MenuOperraciones.setText("Operaciones");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("CheckIn");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -91,7 +93,7 @@ public class Operaciones extends javax.swing.JFrame {
     private void MenuItemAltaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAltaClientesActionPerformed
                                                                                                               
         
-        // 3. Ahora SÍ le pasamos this.empresa a tu panel
+        
         pnAltaClientes panelAlta = new pnAltaClientes(this.empresa);
         
         // Uso setBounds para las dimensiones y posición exacta
@@ -178,8 +180,8 @@ public class Operaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemHistorialActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-                //  Creamos la instancia de tu panel
-        pnAforo panelAforo = new pnAforo();
+       
+        pnAforo panelAforo = new pnAforo(empresa);
         
         
         panelAforo.setBounds(0, 0, this.getWidth(), this.getHeight());

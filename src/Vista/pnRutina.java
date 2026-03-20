@@ -14,16 +14,13 @@ public class pnRutina extends javax.swing.JFrame {
     private Operaciones ventanaPadre; // Enlace para la ventana operaciones
     // Modificamos el constructor para recibir Empresa
     public pnRutina(Empresa empresa,Operaciones ventanaPadre) {
-   
-
-    // 2. Reemplazamos el constructor public pnRutina() por este:
-
-        initComponents();
+        
+       initComponents();
         this.empresa = empresa;
         this.ventanaPadre = ventanaPadre; // Guardamos quién nos llamó
         
-        // Cambiamos el comportamiento de la X de la ventana para que no cierre todo
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+       
+       
     }
     
     // ...resto del código

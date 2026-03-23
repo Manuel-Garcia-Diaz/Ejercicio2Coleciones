@@ -4,17 +4,33 @@
  */
 package Vista;
 
+import Datos.Empresa;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author dam
+ * @author manu2
  */
 public class pnAforo extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Aforo
-     */
-    public pnAforo() {
+   private Empresa empresa;
+   public pnAforo(Empresa empresa) {
         initComponents();
+        this.empresa = empresa;
+        actualizarAforo();
+        
+        // Configurar tecla ESCAPE
+        txtDni.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtDni.setText("");
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) btnDentroActionPerformed(null);
+            }
+        });
+    }
+   private void actualizarAforo() {
+        LabelAforo.setText(String.valueOf(empresa.getCantidadAforoActual()));
     }
 
     /**
@@ -26,90 +42,105 @@ public class pnAforo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnDentro = new javax.swing.JButton();
-        txtDni = new javax.swing.JTextField();
-        btnFuera = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        LabelAforo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        prbarAforo = new javax.swing.JProgressBar();
+        btnDentro = new javax.swing.JButton();
+        btnFuera = new javax.swing.JButton();
+        txtDni = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
-        btnDentro.setText("CHECK IN");
+        LabelAforo.setText("Aforo");
 
-        txtDni.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("CONTROL DE AFORO");
+
+        btnDentro.setText("checkin");
+        btnDentro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDniActionPerformed(evt);
+                btnDentroActionPerformed(evt);
             }
         });
 
-        btnFuera.setText("CHECK OUT");
+        btnFuera.setText("chekout");
+        btnFuera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFueraActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("DNI");
-
-        jLabel2.setText("jLabel2");
-
-        jLabel3.setText("AFORO ACTUAL");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(btnDentro)
-                        .addGap(81, 81, 81)
-                        .addComponent(btnFuera))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(prbarAforo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(168, 168, 168)
+                                .addComponent(LabelAforo))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                                .addGap(130, 130, 130)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(22, 22, 22)
+                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDentro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addComponent(btnFuera)
+                        .addGap(78, 78, 78))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(prbarAforo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(LabelAforo)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDentro)
                     .addComponent(btnFuera))
-                .addGap(59, 59, 59))
+                .addGap(52, 52, 52))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDniActionPerformed
+    private void btnFueraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFueraActionPerformed
+if (empresa.checkOut(txtDni.getText())) {
+            JOptionPane.showMessageDialog(this, "Salida registrada");
+            actualizarAforo();
+            txtDni.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "El DNI no está en el aforo.");
+        }
+    }//GEN-LAST:event_btnFueraActionPerformed
+
+    private void btnDentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDentroActionPerformed
+       if (empresa.checkIn(txtDni.getText())) {
+            JOptionPane.showMessageDialog(this, "Entrada registrada");
+            actualizarAforo();
+            txtDni.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error. Ya dentro o DNI no existe.");
+        }
+    }//GEN-LAST:event_btnDentroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelAforo;
     private javax.swing.JButton btnDentro;
     private javax.swing.JButton btnFuera;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JProgressBar prbarAforo;
     private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }

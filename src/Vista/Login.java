@@ -2,7 +2,8 @@ package Vista;
 
 import Datos.Empresa;
 import Datos.Usuario;
-import Generador.Generador;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 
 
@@ -14,10 +15,33 @@ import javax.swing.JOptionPane;
 
     Empresa empresa = new Empresa();
 
-    public Login() {
-        initComponents();   // Esto lo genera NetBeans
-       empresa.cargarUsuarios();
+    public Login() {initComponents();
+        this.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        this.setTitle("SmartFit - Acceso");
+        
+        // 1. Instanciamos la EMPRESA por única vez en todo el programa
+        empresa = new Empresa();
+        
+        // 2. Cargamos los datos iniciales (Colecciones de usuarios y rutinas base)
+        empresa.cargarUsuarios();
+        empresa.cargarRutina();}
+    
+    private String generarMD5(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -159,36 +183,35 @@ import javax.swing.JOptionPane;
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        String usuario = txtUsuario.getText();
-        String contra = new String(pwdContra.getPassword());
-
-        Usuario u = empresa.getMapaUsuarios().get(usuario);
-
-        if (u != null) {
-
-            String contraHash = Generador.getSHA(contra);
-
-            if (contraHash.equals(u.getContra())) {
-
-                JOptionPane.showMessageDialog(this,
-                        "Login correcto");
-
-                // --- ESTE ES EL CAMBIO ---
-                // Le pasamos 'this.empresa' (la variable que tiene el Login) a la ventana Operaciones
-                Operaciones op = new Operaciones(this.empresa);
-                op.setVisible(true);
-
-                this.dispose();
-
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Contraseña incorrecta");
-            }
-
+String User = txtUsuario.getText();
+        String password = new String( pwdContra.getPassword()); // Obtener texto del JPasswordField
+        
+        // Hasheamos la contraseña que introdujo el usuario
+        String hashIntroducido = generarMD5(password);
+        
+        // Buscamos el usuario en la colección de la empresa
+        Usuario usuarioEncontrado = empresa.getUsuario(User);
+        
+        // Verificamos si existe y si el hash coincide
+        if (usuarioEncontrado != null && usuarioEncontrado.getContraHash().equals(hashIntroducido)) {
+            
+            // 1. Guardamos quién se ha logueado para controlar los permisos luego
+            empresa.setUsuarioLogueado(usuarioEncontrado);
+            
+            // 2. Abrimos la ventana de Operaciones PASÁNDOLE LA EMPRESA
+            Operaciones ventanaPrincipal = new Operaciones(empresa);
+            ventanaPrincipal.setVisible(true);
+            
+            // 3. Cerramos esta ventana de Login
+            this.dispose();
+            
         } else {
-            JOptionPane.showMessageDialog(this,
-                    "El usuario no existe");
+            JOptionPane.showMessageDialog(this, 
+                "Credenciales incorrectas. Verifique su usuario y contraseña.", 
+                "Error de Acceso", 
+                JOptionPane.ERROR_MESSAGE);
+            pwdContra.setText("");
+             pwdContra.requestFocus();
         }
     
                                    
@@ -200,14 +223,9 @@ import javax.swing.JOptionPane;
     }//GEN-LAST:event_pwdContraActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
- limpiar();
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-private void limpiar(){
-        txtUsuario.setText("");
-        pwdContra.setText("");
-    };
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

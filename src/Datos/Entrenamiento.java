@@ -4,31 +4,30 @@
  */
 package Datos;
 
-/**
- *
- * @author dam
- */
+import java.time.LocalDate;
+
+
+
+
 public class Entrenamiento {
-   int Peso;
-   int Series;
-   int Repeticiones;
+    private LocalDate fecha;
+    private Rutina rutina;
+    private int peso;
+    private int series;
+    private int repeticiones;
 
-    public Entrenamiento(int Peso, int Series, int Repeticiones) {
-        this.Peso = Peso;
-        this.Series = Series;
-        this.Repeticiones = Repeticiones;
+    public Entrenamiento(LocalDate fecha, Rutina rutina, int peso, int series, int repeticiones) {
+        this.fecha = fecha;
+        this.rutina = rutina;
+        this.peso = peso;
+        this.series = series;
+        this.repeticiones = repeticiones;
     }
 
-    public int getPeso() {
-        return Peso;
-    }
-
-    public int getSeries() {
-        return Series;
-    }
-
-    public int getRepeticiones() {
-        return Repeticiones;
-    }
-   
+    public LocalDate getFecha() { return fecha; }
+    public Rutina getRutina() { return rutina; }
+    public int getPeso() { return peso; }
+    public int getSeries() { return series; }
+    public int getRepeticiones() { return repeticiones; }
 }
+

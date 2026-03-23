@@ -6,41 +6,28 @@ package Datos;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author dam
- */
+
 public class Cliente {
-    String DNI; // clave cliente . 
-    String Nombre;
-    String Subscripcion;
- //crear array list Entrenamiento
-//Entrenamiento --> Fecha, codigo Rutina , peso , Series , Repeticiones .
-    //(Esta clase) presencia o array list de clientes que estan dentro del gym en (clase emresa) 
-    ArrayList<Entrenamiento>Entrenamientos;
-    
-    public Cliente(String DNI, String Nombre, String Subscripcion) {
+    private String DNI;
+    private String nombre;
+    private String subscripcion;
+    private ArrayList<Entrenamiento> historialEntrenamientos;
+
+    public Cliente(String DNI, String nombre, String subscripcion) {
         this.DNI = DNI;
-        this.Nombre = Nombre;
-        this.Subscripcion = Subscripcion;
-        Entrenamientos = new ArrayList<>();
+        this.nombre = nombre;
+        this.subscripcion = subscripcion;
+        this.historialEntrenamientos = new ArrayList<>();
     }
 
-    public String getDNI() {
-        return DNI;
-    }
+    public String getDNI() { return DNI; }
+    public String getNombre() { return nombre; }
+    public String getSubscripcion() { return subscripcion; }
+    public ArrayList<Entrenamiento> getHistorial() { return historialEntrenamientos; }
 
-    public String getNombre() {
-        return Nombre;
+    public void registrarEntrenamiento(Entrenamiento e) {
+        historialEntrenamientos.add(e);
     }
-
-    public String getSubscripcion() {
-        return Subscripcion;
-    }
-
-    public ArrayList<Entrenamiento> getEntrenamientos() {
-        return Entrenamientos;
-    }
-    
-    
 }
+    
+

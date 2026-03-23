@@ -1,33 +1,40 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista;
 
 import Datos.Empresa;
 import Datos.Rutina;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
-public class pnRutina extends javax.swing.JFrame { 
+/**
+ *
+ * @author manu2
+ */
+public class pnRutina extends javax.swing.JPanel {
 
-    private Empresa empresa; // Creamos la variable para almacenar la empresa
-    private Operaciones ventanaPadre; // Enlace para la ventana operaciones
-    // Modificamos el constructor para recibir Empresa
-    public pnRutina(Empresa empresa,Operaciones ventanaPadre) {
-   
-
-    // 2. Reemplazamos el constructor public pnRutina() por este:
-
+  private Empresa empresa;
+        public pnRutina(Empresa empresa) {
         initComponents();
         this.empresa = empresa;
-        this.ventanaPadre = ventanaPadre; // Guardamos quién nos llamó
-        
-        // Cambiamos el comportamiento de la X de la ventana para que no cierre todo
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        configurarTeclado();
     }
-    
-    // ...resto del código
-   
+    private void configurarTeclado() {
+        txtNombre.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) txtaDescripcion.requestFocus();
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtNombre.setText("");
+            }
+        });
+        txtaDescripcion.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtaDescripcion.setText("");
+            }
+        });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,36 +45,13 @@ public class pnRutina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtaDescripcion = new javax.swing.JTextArea();
-        txtNivel = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Nombre");
-
-        jLabel2.setText("Nivel");
-
-        jLabel3.setText("Descripcion");
-
-        jLabel4.setText("MANTENIMIENTO RUTINAS");
-
-        txtaDescripcion.setColumns(20);
-        txtaDescripcion.setRows(5);
-        jScrollPane1.setViewportView(txtaDescripcion);
-
-        txtNivel.setText("jTextField1");
-
-        txtNombre.setText("jTextField2");
+        CmbCodigo = new javax.swing.JComboBox<>();
+        CmbNivel = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtaDescripcion = new javax.swing.JTextArea();
+        txtNombre = new javax.swing.JTextField();
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,148 +60,82 @@ public class pnRutina extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
+        btnCancelar.setText("jButton1");
 
-        jLabel5.setText("Codigo");
+        CmbCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        txtCodigo.setText("jTextField3");
+        CmbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        txtaDescripcion.setColumns(20);
+        txtaDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtaDescripcion);
+
+        txtNombre.setText("Nombre");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(60, 60, 60)
+                .addComponent(btnAceptar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(86, 86, 86))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCodigo))
+                        .addGap(135, 135, 135)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CmbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CmbCodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNivel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNombre))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAceptar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCancelar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(42, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(126, 126, 126))
+                        .addGap(86, 86, 86)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(88, 88, 88)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(CmbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(CmbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addGap(26, 26, 26))
+                    .addComponent(btnCancelar)))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-                                                 
-        //  Obtener el texto de los campos
-        String codigo = txtCodigo.getText();
+       String codigo = CmbCodigo.getSelectedItem().toString();
         String nombre = txtNombre.getText();
-        String nivel = txtNivel.getText();
+        String nivel = CmbNivel.getSelectedItem().toString();
         String descripcion = txtaDescripcion.getText();
 
-        //  Validar que no estén vacíos
-        if(codigo.isEmpty() || nombre.isEmpty() || nivel.isEmpty() || descripcion.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Por favor, rellena todos los campos.");
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos.");
             return;
         }
-
-        // 3. Crear el objeto Rutina
         Rutina nuevaRutina = new Rutina(codigo, nombre, nivel, descripcion);
-
-        // 4. Guarda en el HashMap de Empresa (usamos el Nombre como clave)
-        this.empresa.getMapaRutina().put(nombre, nuevaRutina);
-
-        // 5. Avisar al usuario y limpiar los campos
-        JOptionPane.showMessageDialog(this, "Rutina guardada correctamente.");
-        
-        txtCodigo.setText("");
-        txtNombre.setText("");
-        txtNivel.setText("");
-        txtaDescripcion.setText("");
-                                              
-
-   
-    
+        empresa.addRutina(nuevaRutina);
+        JOptionPane.showMessageDialog(this, "Rutina añadida correctamente.");
+        txtNombre.setText(""); txtaDescripcion.setText("");
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        txtCodigo.setText("");
-        txtNombre.setText("");
-        txtNivel.setText("");
-        txtaDescripcion.setText("");
-        
-        // Volvemos a mostrar la ventana principal
-        if (this.ventanaPadre != null) {
-            this.ventanaPadre.setVisible(true);
-        }
-        
-        // Destruimos la ventana actual para liberar memoria (es mejor que setVisible(false))
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CmbCodigo;
+    private javax.swing.JComboBox<String> CmbNivel;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtNivel;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextArea txtaDescripcion;
     // End of variables declaration//GEN-END:variables

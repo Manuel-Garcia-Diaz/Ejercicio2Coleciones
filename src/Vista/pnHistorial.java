@@ -4,18 +4,24 @@
  */
 package Vista;
 
-/**
- *
- * @author dam
- */
+import Datos.Cliente;
+import Datos.Empresa;
+import Datos.Entrenamiento;
+import Datos.Rutina;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 public class pnHistorial extends javax.swing.JPanel {
-
-    /**
-     * Creates new form pnHistorial
-     */
+    private Empresa empresa;
+    private Cliente clienteActual;
+   
+    //cada vez que metamos un entrenamiento asignamos horas .
     public pnHistorial() {
         initComponents();
-        
+        this.empresa = empresa;
+        //cargarRutinas();
+       
     }
 
     /**
@@ -30,7 +36,9 @@ public class pnHistorial extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         ScrollHistorial = new javax.swing.JScrollPane();
         TablaHistorial = new javax.swing.JTable();
-        btnCancelar = new javax.swing.JButton();
+        txtDni = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnVisualizar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel1.setText("Historial de Entrenamientos ");
@@ -48,7 +56,20 @@ public class pnHistorial extends javax.swing.JPanel {
         ));
         ScrollHistorial.setViewportView(TablaHistorial);
 
-        btnCancelar.setText("Cancelar");
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDniActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("DNI");
+
+        btnVisualizar.setText("Visualizar");
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -57,14 +78,20 @@ public class pnHistorial extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(btnCancelar)))
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnVisualizar)))))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -73,18 +100,31 @@ public class pnHistorial extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnVisualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDniActionPerformed
+
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+      
+    }//GEN-LAST:event_btnVisualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollHistorial;
     private javax.swing.JTable TablaHistorial;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnVisualizar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }

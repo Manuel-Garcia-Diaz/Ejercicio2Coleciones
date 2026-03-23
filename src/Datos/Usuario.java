@@ -4,28 +4,20 @@
  */
 package Datos;
 
-/**
- *
- * @author dam
- */
-public class Usuario {
-    String contra;
-    int perfil;
-   
-   
 
-    public Usuario(String contra, int perfil) {
-        this.contra = contra;
+
+public class Usuario {
+    private String nombreUsuario; // Añadido para mejor identificación
+    private String contraHash; // Contraseña en MD5
+    private int perfil; // 1: Recepcionista, 2: Entrenador, 3: Gerente
+
+    public Usuario(String nombreUsuario, String contraHash, int perfil) {
+        this.nombreUsuario = nombreUsuario;
+        this.contraHash = contraHash;
         this.perfil = perfil;
     }
 
-    public String getContra() {
-        return contra;
-    }
-
-    public int getPerfil() {
-        return perfil;
-    }
-    
+    public int getPerfil() { return perfil; }
+    public String getContraHash() { return contraHash; }
+    public String getNombreUsuario() { return nombreUsuario; }
 }
-

@@ -4,34 +4,28 @@
  */
 package Datos;
 
+
+
 public class Rutina {
-    String CodRutina;
-    String Nombre;
-    String Nivel;
-    String Descripcion;
+    private String codRutina;
+    private String nombre;
+    private String nivel;
+    private String descripcion;
 
-    public Rutina(String CodRutina, String Nombre, String Nivel, String Descripcion) {
-        this.CodRutina = CodRutina;
-        this.Nombre = Nombre;
-        this.Nivel = Nivel;
-        this.Descripcion = Descripcion;
+    public Rutina(String codRutina, String nombre, String nivel, String descripcion) {
+        this.codRutina = codRutina;
+        this.nombre = nombre;
+        this.nivel = nivel;
+        this.descripcion = descripcion;
     }
 
-    public String getCodRutina() {
-        return CodRutina;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public String getNivel() {
-        return Nivel;
-    }
-
-    public String getDescripcion() {
-        return Descripcion;
-    }
+    public String getCodRutina() { return codRutina; }
+    public String getNombre() { return nombre; }
+    public String getNivel() { return nivel; }
+    public String getDescripcion() { return descripcion; }
     
-    
+    @Override
+    public String toString() {
+        return nombre + " (" + nivel + ")";
+    }
 }

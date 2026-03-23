@@ -10,7 +10,7 @@ public class Operaciones extends javax.swing.JFrame {
     public Operaciones(Empresa empresa) {
         initComponents();
         this.empresa = empresa;
-        this.setTitle("SmartFit - Panel de Gestión"); // Requisito obligatorio
+        this.setTitle("SmartFit - Panel de Gestión"); 
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout()); 
         

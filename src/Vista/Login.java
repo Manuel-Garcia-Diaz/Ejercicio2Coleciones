@@ -63,7 +63,7 @@ import javax.swing.JOptionPane;
                                      
 private String generarMD5(String password) {
     try {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
         byte[] digest = md.digest();
         StringBuilder sb = new StringBuilder();
@@ -71,7 +71,7 @@ private String generarMD5(String password) {
             sb.append(String.format("%02x", b & 0xff));
         }
         return sb.toString();
-    } catch (NoSuchAlgorithmException e) {
+    } catch (java.security.NoSuchAlgorithmException e) {
         e.printStackTrace();
         return null;
     }

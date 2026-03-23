@@ -6,12 +6,7 @@ package Vista;
 
 import Datos.Cliente;
 import Datos.Empresa;
-import Datos.Entrenamiento;
-import Datos.Rutina;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.time.LocalDate;
-import javax.swing.JOptionPane;
+
 public class pnHistorial extends javax.swing.JPanel {
     private Empresa empresa;
     private Cliente clienteActual;

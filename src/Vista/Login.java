@@ -26,21 +26,7 @@ import javax.swing.JOptionPane;
         empresa.cargarUsuarios();
         empresa.cargarRutina();}
     
-    private String generarMD5(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(password.getBytes());
-            byte[] digest = md.digest();
-            StringBuilder sb = new StringBuilder();
-            for (byte b : digest) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+   
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -75,7 +61,21 @@ import javax.swing.JOptionPane;
     }
 
                                      
-
+private String generarMD5(String password) {
+    try {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] digest = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+        return sb.toString();
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
 
 
     /**
@@ -198,11 +198,11 @@ String User = txtUsuario.getText();
             // 1. Guardamos quién se ha logueado para controlar los permisos luego
             empresa.setUsuarioLogueado(usuarioEncontrado);
             
-            // 2. Abrimos la ventana de Operaciones PASÁNDOLE LA EMPRESA
+            //  Abrimos la ventana de Operaciones PASÁNDOLE LA EMPRESA
             Operaciones ventanaPrincipal = new Operaciones(empresa);
             ventanaPrincipal.setVisible(true);
             
-            // 3. Cerramos esta ventana de Login
+            //  Cerramos esta ventana de Login
             this.dispose();
             
         } else {

@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 public class Empresa {
     private Map<String, Usuario> mapaUsuarios = new HashMap<>();
     private Map<String, Cliente> mapaClientes = new HashMap<>();
@@ -18,10 +19,12 @@ public class Empresa {
     private Usuario usuarioLogueado;
 
     public void cargarUsuarios() {
-        // Ejemplo genérico con MD5 simulado. Deberías usar tu Generador MD5.
-        mapaUsuarios.put("recepcion", new Usuario("recepcion", "hash1", 1));
-        mapaUsuarios.put("entrenador", new Usuario("entrenador", "hash2", 2));
-        mapaUsuarios.put("admin", new Usuario("admin", "81dc9bdb52d04dc20036dbd8313ed055", 3));
+       
+    // Al usar generarMD5("1234"), el sistema calcula el hash y lo guarda
+    mapaUsuarios.put("recepcion", new Usuario("recepcion", generarMD5("1234"), 1));
+    mapaUsuarios.put("entrenador", new Usuario("entrenador", generarMD5("1234"), 2));
+    mapaUsuarios.put("admin", new Usuario("admin", generarMD5("1234"), 3));
+
     }
 
     public void cargarRutina() {
@@ -39,6 +42,21 @@ public class Empresa {
 // Método para buscar un usuario por su nombre de usuario en el mapa
 public Usuario getUsuario(String User) {
     return mapaUsuarios.get(User);
+}
+private String generarMD5(String password) {
+    try {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] digest = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+        return sb.toString();
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+        return null;
+    }
 }
     // --- Control Aforo ---
     public boolean checkIn(String dni) {

@@ -6,8 +6,8 @@ package Vista;
 
 import Datos.Empresa;
 import Datos.Rutina;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,20 +20,42 @@ public class pnRutina extends javax.swing.JPanel {
         public pnRutina(Empresa empresa) {
         initComponents();
         this.empresa = empresa;
-        configurarTeclado();
+        CmbNivel.removeAllItems();
+        CmbNivel.addItem("Basico");
+        CmbNivel.addItem("Intermedio");
+        CmbNivel.addItem("Profesional");
+        cargarCodigosRutinas();
+        CmbCodigo.setEditable(true);
+        CmbCodigo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarCamposPorCodigo();
+            }
+        });
     }
-    private void configurarTeclado() {
-        txtNombre.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) txtaDescripcion.requestFocus();
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtNombre.setText("");
+  private void cargarCodigosRutinas() {
+        CmbCodigo.removeAllItems();
+        for (String codigo : empresa.getMapaRutinas().keySet()) {
+            CmbCodigo.addItem(codigo);
+        }
+        CmbCodigo.setSelectedItem(""); // Dejarlo en blanco por defecto
+    }
+  private void actualizarCamposPorCodigo() {
+        if (CmbCodigo.getSelectedItem() != null) {
+            String codSeleccionado = CmbCodigo.getSelectedItem().toString();
+            Rutina r = empresa.getRutina(codSeleccionado);
+            
+            if (r != null) { // Si el código existe en el catálogo, mostramos sus datos
+                txtNombre.setText(r.getNombre());
+                CmbNivel.setSelectedItem(r.getNivel());
+                txtaDescripcion.setText(r.getDescripcion());
+            } else { 
+                // Si es un código nuevo que está escribiendo el usuario, limpiamos para que empiece de cero
+                txtNombre.setText("");
+                txtaDescripcion.setText("");
+                CmbNivel.setSelectedIndex(0); // Vuelve a "Basico"
             }
-        });
-        txtaDescripcion.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtaDescripcion.setText("");
-            }
-        });
+        }
     }
 
     /**
@@ -148,19 +170,26 @@ public class pnRutina extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       String codigo = CmbCodigo.getSelectedItem().toString();
+      // Tomamos el código directamente de lo que haya escrito/seleccionado en el JComboBox
+        String codigo = CmbCodigo.getSelectedItem().toString(); 
         String nombre = txtNombre.getText();
         String nivel = CmbNivel.getSelectedItem().toString();
         String descripcion = txtaDescripcion.getText();
 
-        if (nombre.isEmpty() || descripcion.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Rellene todos los campos.");
+        if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos, incluyendo el código.");
             return;
         }
+        
         Rutina nuevaRutina = new Rutina(codigo, nombre, nivel, descripcion);
-        empresa.addRutina(nuevaRutina);
-        JOptionPane.showMessageDialog(this, "Rutina añadida correctamente.");
-        txtNombre.setText(""); txtaDescripcion.setText("");
+        empresa.addRutina(nuevaRutina); // Se guarda en la empresa
+        
+        JOptionPane.showMessageDialog(this, "Rutina registrada correctamente en el catálogo.");
+        
+        // Recargar el ComboBox para que aparezca el nuevo código
+        cargarCodigosRutinas(); 
+        txtNombre.setText(""); 
+        txtaDescripcion.setText("");
     }//GEN-LAST:event_btnAceptarActionPerformed
 
 

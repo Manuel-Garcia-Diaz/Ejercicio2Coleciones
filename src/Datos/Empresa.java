@@ -21,7 +21,7 @@ public class Empresa {
         // Ejemplo genérico con MD5 simulado. Deberías usar tu Generador MD5.
         mapaUsuarios.put("recepcion", new Usuario("recepcion", "hash1", 1));
         mapaUsuarios.put("entrenador", new Usuario("entrenador", "hash2", 2));
-        mapaUsuarios.put("admin", new Usuario("admin", "hash3", 3));
+        mapaUsuarios.put("admin", new Usuario("admin", "81dc9bdb52d04dc20036dbd8313ed055", 3));
     }
 
     public void cargarRutina() {

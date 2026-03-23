@@ -17,9 +17,10 @@ public class pnHistorial extends javax.swing.JPanel {
     private Cliente clienteActual;
    
     //cada vez que metamos un entrenamiento asignamos horas .
-    public pnHistorial() {
+    public pnHistorial(Empresa empresa) {
         initComponents();
         this.empresa = empresa;
+        
         //cargarRutinas();
        
     }

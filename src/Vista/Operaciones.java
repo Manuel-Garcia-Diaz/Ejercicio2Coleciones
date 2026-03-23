@@ -111,16 +111,16 @@ public class Operaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemAltaClientesActionPerformed
 
     private void MenuItemManteRutinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemManteRutinasActionPerformed
- cambiarPanel(new pnRutina(empresa));
+  cambiarPanel(new pnRutina(empresa));
     }//GEN-LAST:event_MenuItemManteRutinasActionPerformed
 
     private void MenuItemHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemHistorialActionPerformed
-    //cambiarPanel(new pnHistorial(empresa));                                                     
+    cambiarPanel(new pnHistorial(empresa));                                                     
 
     }//GEN-LAST:event_MenuItemHistorialActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-  //cambiarPanel(new pnAforo(empresa));
+  cambiarPanel(new pnAforo(empresa));
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
    

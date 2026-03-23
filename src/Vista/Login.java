@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
      */
     public class Login extends javax.swing.JFrame {
 
-    Empresa empresa = new Empresa();
+    Empresa empresa ;
 
     public Login() {initComponents();
         this.setLocationRelativeTo(null); // Centrar la ventana en la pantalla

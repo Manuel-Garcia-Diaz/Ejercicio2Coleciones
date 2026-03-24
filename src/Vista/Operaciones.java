@@ -47,6 +47,7 @@ public class Operaciones extends javax.swing.JFrame {
         MenuItemManteRutinas = new javax.swing.JMenuItem();
         MenuItemHistorial = new javax.swing.JMenuItem();
         MenuSalir = new javax.swing.JMenu();
+        MenuItemDesconectar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SmartFit - Panel de Gestión");
@@ -88,6 +89,15 @@ public class Operaciones extends javax.swing.JFrame {
         jMenuBar1.add(MenuOperraciones);
 
         MenuSalir.setText("Salir");
+
+        MenuItemDesconectar.setText("Desconectar");
+        MenuItemDesconectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemDesconectarActionPerformed(evt);
+            }
+        });
+        MenuSalir.add(MenuItemDesconectar);
+
         jMenuBar1.add(MenuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -123,11 +133,16 @@ public class Operaciones extends javax.swing.JFrame {
   cambiarPanel(new pnAforo(empresa));
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void MenuItemDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemDesconectarActionPerformed
+     //cambiarPanel(new pnEntrenamiento(empresa));
+    }//GEN-LAST:event_MenuItemDesconectarActionPerformed
+
    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuItemAltaClientes;
+    private javax.swing.JMenuItem MenuItemDesconectar;
     private javax.swing.JMenuItem MenuItemHistorial;
     private javax.swing.JMenuItem MenuItemManteRutinas;
     private javax.swing.JMenu MenuOperraciones;

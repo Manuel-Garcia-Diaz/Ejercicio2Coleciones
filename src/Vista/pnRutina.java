@@ -25,7 +25,7 @@ public class pnRutina extends javax.swing.JPanel {
         CmbNivel.addItem("Intermedio");
         CmbNivel.addItem("Profesional");
         cargarCodigosRutinas();
-        CmbCodigo.setEditable(true);//combo editable para der introducir el codigo que queramos .
+        CmbCodigo.setEditable(true);//combo editable para der introducir el codigo .
         CmbCodigo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,7 +45,7 @@ public class pnRutina extends javax.swing.JPanel {
             String codSeleccionado = CmbCodigo.getSelectedItem().toString();
             Rutina r = empresa.getRutina(codSeleccionado);
             
-            if (r != null) { // Si el código existe en el catálogo, mostramos sus datos
+            if (r != null) { // Si el código existe , mostramos sus datos
                 txtNombre.setText(r.getNombre());
                 CmbNivel.setSelectedItem(r.getNivel());
                 txtaDescripcion.setText(r.getDescripcion());
@@ -96,7 +96,6 @@ public class pnRutina extends javax.swing.JPanel {
         txtaDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtaDescripcion);
 
-        txtNombre.setEditable(false);
         txtNombre.setText("Nombre");
 
         jLabel1.setText("Codigo");
@@ -165,7 +164,7 @@ public class pnRutina extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

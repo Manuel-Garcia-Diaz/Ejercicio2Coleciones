@@ -6,6 +6,11 @@ package Vista;
 
 import Datos.Cliente;
 import Datos.Empresa;
+import Datos.Entrenamiento;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class pnHistorial extends javax.swing.JPanel {
     private Empresa empresa;
@@ -15,10 +20,45 @@ public class pnHistorial extends javax.swing.JPanel {
     public pnHistorial(Empresa empresa) {
         initComponents();
         this.empresa = empresa;
-        
+        configurarTeclado();
         //cargarRutinas();
        
     }
+    private void configurarTeclado() {
+        txtDni.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    btnVisualizarActionPerformed(null); // Ejecuta el botón de buscar
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    btnCancelarActionPerformed(null); // Limpia todo
+                }
+            }
+        });
+    }
+    private void actualizarTablaHistorial() {
+    // 1. Obtenemos el modelo de la tabla (sustituye jTable1 por el nombre de tu tabla si lo cambiaste)
+    DefaultTableModel modelo = (DefaultTableModel) TablaHistorial.getModel();
+    
+    // 2. Limpiamos la tabla borrando todas las filas anteriores
+    modelo.setRowCount(0); 
+
+    // 3. Si hay un cliente seleccionado, rellenamos con sus datos
+    if (clienteActual != null) {
+        for (Entrenamiento e : clienteActual.getHistorial()) {
+            // Creamos un vector (fila) con los datos en el mismo orden que las columnas
+            Object[] fila = new Object[5];
+            fila[0] = e.getFecha();
+            fila[1] = e.getRutina().getNombre();
+            fila[2] = e.getPeso() + " kg";
+            fila[3] = e.getSeries();
+            fila[4] = e.getRepeticiones();
+            
+            // Añadimos la fila al modelo
+            modelo.addRow(fila);
+        }
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,19 +75,20 @@ public class pnHistorial extends javax.swing.JPanel {
         txtDni = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnVisualizar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel1.setText("Historial de Entrenamientos ");
 
         TablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fecha", "Rutina", "Peso", "Series", "Repeticiones"
             }
         ));
         ScrollHistorial.setViewportView(TablaHistorial);
@@ -67,6 +108,13 @@ public class pnHistorial extends javax.swing.JPanel {
             }
         });
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,18 +125,19 @@ public class pnHistorial extends javax.swing.JPanel {
                         .addGap(68, 68, 68)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel2)
+                        .addGap(159, 159, 159)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnVisualizar)))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                                .addComponent(btnVisualizar))
+                            .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,9 +149,11 @@ public class pnHistorial extends javax.swing.JPanel {
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(btnVisualizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(ScrollHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
+                .addGap(18, 18, 18)
+                .addComponent(ScrollHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -111,13 +162,30 @@ public class pnHistorial extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDniActionPerformed
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-      
+      String dni = txtDni.getText().trim();
+        clienteActual = empresa.getCliente(dni);
+
+        if (clienteActual != null) {
+            actualizarTablaHistorial(); // Llena la tabla
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
+            clienteActual = null;
+            actualizarTablaHistorial(); // Deja la tabla vacía
+        }
     }//GEN-LAST:event_btnVisualizarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        txtDni.setText("");
+        clienteActual = null;
+        actualizarTablaHistorial(); // Vacía la tabla
+        txtDni.requestFocus(); // Vuelve el cursor al buscador
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollHistorial;
     private javax.swing.JTable TablaHistorial;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

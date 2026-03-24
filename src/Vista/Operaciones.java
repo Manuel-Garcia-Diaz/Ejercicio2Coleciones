@@ -49,6 +49,7 @@ public class Operaciones extends javax.swing.JFrame {
         jMenuItemEntrenamientos = new javax.swing.JMenuItem();
         MenuSalir = new javax.swing.JMenu();
         MenuItemDesconectar = new javax.swing.JMenuItem();
+        jMenuItemSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SmartFit - Panel de Gestión");
@@ -107,6 +108,14 @@ public class Operaciones extends javax.swing.JFrame {
         });
         MenuSalir.add(MenuItemDesconectar);
 
+        jMenuItemSalir.setText("Salir Programa");
+        jMenuItemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSalirActionPerformed(evt);
+            }
+        });
+        MenuSalir.add(jMenuItemSalir);
+
         jMenuBar1.add(MenuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -143,12 +152,23 @@ public class Operaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void MenuItemDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemDesconectarActionPerformed
-     
+    // 1. Creamos una nueva ventana de Login
+    Login ventanaLogin = new Login();
+    
+    // 2. La hacemos visible en la pantalla
+    ventanaLogin.setVisible(true);
+    
+    // 3. Cerramos y destruimos la ventana actual de Operaciones
+    this.dispose();
     }//GEN-LAST:event_MenuItemDesconectarActionPerformed
 
     private void jMenuItemEntrenamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntrenamientosActionPerformed
         cambiarPanel(new pnEntrenamientos(empresa));
     }//GEN-LAST:event_jMenuItemEntrenamientosActionPerformed
+
+    private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
+      System.exit(0);
+    }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
    
     
@@ -163,6 +183,7 @@ public class Operaciones extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemEntrenamientos;
+    private javax.swing.JMenuItem jMenuItemSalir;
     // End of variables declaration//GEN-END:variables
 
 }

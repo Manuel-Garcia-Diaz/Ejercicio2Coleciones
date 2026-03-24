@@ -4,17 +4,102 @@
  */
 package Vista;
 
+import Datos.Cliente;
+import Datos.Empresa;
+import Datos.Entrenamiento;
+import Datos.Rutina;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dam
  */
 public class pnEntrenamientos extends javax.swing.JPanel {
 
-    /**
-     * Creates new form pnEntrenamientos
-     */
-    public pnEntrenamientos() {
+    private Empresa empresa;
+    private Cliente clienteActual; // Guardaremos aquí el cliente cuando se busque
+    public pnEntrenamientos(Empresa empresa) {
         initComponents();
+        this.empresa = empresa;
+        
+        cargarRutinasDisponibles();
+        configurarTeclado();
+    }
+    private void cargarRutinasDisponibles() {
+        // Cambia 'CmbRutinas' por el nombre real de tu JComboBox
+        CmbRutinas.removeAllItems();
+        
+        // Recorremos las rutinas creadas en la Empresa y las añadimos
+        for (Rutina r : empresa.getMapaRutinas().values()) {
+            CmbRutinas.addItem(r.getCodRutina() + " - " + r.getNombre());
+        }
+    }
+    private void configurarTeclado() {
+        
+        // Eventos para el campo DNI
+        txtDni.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    buscarCliente(); // Busca el cliente antes de saltar
+                    txtPeso.requestFocus(); // Salta al campo Peso
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    txtDni.setText(""); // Limpia el campo
+                }
+            }
+        });
+
+        // Eventos para el campo Peso
+        txtPeso.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    txtSeries.requestFocus();
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    txtPeso.setText("");
+                }
+            }
+        });
+
+        // Eventos para el campo Series
+        txtSeries.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    txtRepeticiones.requestFocus();
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    txtSeries.setText("");
+                }
+            }
+        });
+
+        // Eventos para el campo Repeticiones
+        txtRepeticiones.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    btnGrabarActionPerformed(null); // Ejecuta el botón de Guardar
+                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    txtRepeticiones.setText("");
+                }
+            }
+        });
+    }
+    private void buscarCliente() {
+        String dni = txtDni.getText().trim();
+        clienteActual = empresa.getCliente(dni);
+
+        if (clienteActual != null) {
+            // Suponiendo que tienes un JLabel (lblNombre) para confirmar a quién le asignas la rutina
+            lblNombre.setText("Cliente: " + clienteActual.getNombre());
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado. Compruebe el DNI.");
+            lblNombre.setText("Cliente: ---");
+            clienteActual = null;
+        }
     }
 
     /**
@@ -26,13 +111,12 @@ public class pnEntrenamientos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtDNI = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
+        txtDni = new javax.swing.JTextField();
         txtPeso = new javax.swing.JTextField();
         txtSeries = new javax.swing.JTextField();
         txtRepeticiones = new javax.swing.JTextField();
-        cmbRutina = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        CmbRutinas = new javax.swing.JComboBox<>();
+        lblNombre = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,9 +126,9 @@ public class pnEntrenamientos extends javax.swing.JPanel {
         btnGrabar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        cmbRutina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CmbRutinas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel1.setText("Nombre Cliente");
+        lblNombre.setText("Nombre Cliente");
 
         jLabel2.setText("Rutina");
 
@@ -60,65 +144,76 @@ public class pnEntrenamientos extends javax.swing.JPanel {
         jLabel7.setText("Alta de Entrenamientos");
 
         btnGrabar.setText("Grabar");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(108, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(102, 102, 102))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblNombre)
+                .addGap(154, 154, 154))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGrabar)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(1, 1, 1)))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtRepeticiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSeries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                        .addGap(16, 16, 16))
+                    .addComponent(CmbRutinas, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtRepeticiones)
+                    .addComponent(txtSeries)
+                    .addComponent(txtPeso))
+                .addGap(85, 85, 85))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnGrabar)
+                        .addGap(87, 87, 87)
                         .addComponent(btnCancelar)
-                        .addGap(54, 54, 54))))
+                        .addGap(74, 74, 74))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                        .addComponent(lblNombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CmbRutinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,28 +226,84 @@ public class pnEntrenamientos extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtRepeticiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
                     .addComponent(btnGrabar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+if (clienteActual == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, introduzca un DNI válido y pulse ENTER.");
+            txtDni.requestFocus();
+            return;
+        }
+
+        try {
+            // 1. Extraer la rutina seleccionada del ComboBox
+            String seleccion = CmbRutinas.getSelectedItem().toString();
+            String codRutina = seleccion.split(" - ")[0]; // Obtenemos la parte antes del guion
+            Rutina rutinaSeleccionada = empresa.getRutina(codRutina);
+
+            // 2. Extraer los datos numéricos
+            int peso = Integer.parseInt(txtPeso.getText().trim());
+            int series = Integer.parseInt(txtSeries.getText().trim());
+            int repeticiones = Integer.parseInt(txtRepeticiones.getText().trim());
+
+            // 3. Crear el entrenamiento y guardarlo en el historial del cliente
+            Entrenamiento nuevoEntreno = new Entrenamiento(LocalDate.now(), rutinaSeleccionada, peso, series, repeticiones);
+            clienteActual.registrarEntrenamiento(nuevoEntreno);
+
+            JOptionPane.showMessageDialog(this, "Entrenamiento registrado con éxito para " + clienteActual.getNombre());
+            
+            // Limpiamos los campos para el siguiente registro
+            btnCancelarActionPerformed(null);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error: El Peso, las Series y las Repeticiones deben ser números enteros.");
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Error: Debe seleccionar una rutina del catálogo.");
+        }
+    }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       // Borramos todo lo escrito en los JTextFields
+        txtDni.setText("");
+        txtPeso.setText("");
+        txtSeries.setText("");
+        txtRepeticiones.setText("");
+        
+        // Reiniciamos la búsqueda
+        if (lblNombre != null) {
+            lblNombre.setText("Cliente: ---");
+        }
+        clienteActual = null;
+        
+        // Reiniciamos el desplegable a la primera opción
+        if (CmbRutinas.getItemCount() > 0) {
+            CmbRutinas.setSelectedIndex(0);
+        }
+        
+        // Ponemos el cursor de nuevo en el DNI
+        txtDni.requestFocus(); 
+    
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CmbRutinas;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
-    private javax.swing.JComboBox<String> cmbRutina;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtRepeticiones;
     private javax.swing.JTextField txtSeries;

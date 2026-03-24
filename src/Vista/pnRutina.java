@@ -8,6 +8,8 @@ import Datos.Empresa;
 import Datos.Rutina;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,7 +34,8 @@ public class pnRutina extends javax.swing.JPanel {
                 actualizarCamposPorCodigo();
             }
         });
-    }
+            configurarTeclado();
+        }
   private void cargarCodigosRutinas() {
         CmbCodigo.removeAllItems();
         for (String codigo : empresa.getMapaRutinas().keySet()) {
@@ -57,7 +60,39 @@ public class pnRutina extends javax.swing.JPanel {
             }
         }
     }
+private void configurarTeclado() {
+    // Como CmbCodigo es un ComboBox editable, accedemos a su editor de texto
+    CmbCodigo.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                txtNombre.requestFocus(); // Salta al nombre
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                CmbCodigo.setSelectedItem(""); // Lo limpia
+            }
+        }
+    });
 
+    txtNombre.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                CmbNivel.requestFocus(); // Salta al Nivel
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                txtNombre.setText(""); 
+            }
+        }
+    });
+
+    txtaDescripcion.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                txtaDescripcion.setText(""); // Limpia la descripción
+            }
+        }
+    });
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,6 +122,11 @@ public class pnRutina extends javax.swing.JPanel {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         CmbCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -190,6 +230,21 @@ public class pnRutina extends javax.swing.JPanel {
         txtNombre.setText(""); 
         txtaDescripcion.setText("");
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       CmbCodigo.setSelectedItem(""); 
+    
+    txtNombre.setText("");
+    txtaDescripcion.setText("");
+    
+    // Reiniciamos el nivel a la primera opción ("Basico")
+    if (CmbNivel.getItemCount() > 0) {
+        CmbNivel.setSelectedIndex(0);
+    }
+    
+    // Ponemos el cursor en el código
+    CmbCodigo.requestFocus();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -19,21 +19,30 @@ public class pnAltaClientes extends javax.swing.JPanel {
     }
 
     private void configurarTeclado() {
-        // Eventos requeridos por PDF (<ENTER> para saltar, <ESC> para limpiar)
-        txtDni.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) txtNombre.requestFocus();
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtDni.setText("");
+    txtDni.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                txtNombre.requestFocus(); // Salta al nombre
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                txtDni.setText(""); 
             }
-        });
+        }
+    });
+
+    txtNombre.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                comboSubscripcion.requestFocus(); // Salta al desplegable
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                txtNombre.setText(""); 
+            }
+        }
+    });
+}
         
-        txtNombre.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) comboSubscripcion.requestFocus();
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) txtNombre.setText("");
-            }
-        });
-    }
+    
 
     
     
@@ -139,7 +148,16 @@ public class pnAltaClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    txtDni.setText("");
+    txtNombre.setText("");
     
+    // Si el desplegable tiene elementos, lo volvemos   a la primera opción
+    if (comboSubscripcion.getItemCount() > 0) {
+        comboSubscripcion.setSelectedIndex(0);
+    }
+    
+    // Ponemos el cursor en el primer campo
+    txtDni.requestFocus();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed

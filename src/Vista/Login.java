@@ -2,8 +2,8 @@ package Vista;
 
 import Datos.Empresa;
 import Datos.Usuario;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 
@@ -24,8 +24,9 @@ import javax.swing.JOptionPane;
         
         // 2. Cargamos los datos iniciales (Colecciones de usuarios y rutinas base)
         empresa.cargarUsuarios();
-        empresa.cargarRutina();}
-    
+        empresa.cargarRutina();
+         configurarTeclado();}
+         
    
     
     public static void main(String args[]) {
@@ -59,7 +60,29 @@ import javax.swing.JOptionPane;
             }
         });
     }
+private void configurarTeclado() {
+    txtUsuario.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                pwdContra.requestFocus(); // Salta a la contraseña
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                txtUsuario.setText(""); // Limpia el usuario
+            }
+        }
+    });
 
+    pwdContra.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                btnLoginActionPerformed(null); // Ejecuta el inicio de sesión
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                pwdContra.setText(""); // Limpia la contraseña
+            }
+        }
+    });
+}
                                      
 private String generarMD5(String password) {
     try {

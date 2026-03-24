@@ -28,7 +28,7 @@ public class pnAforo extends javax.swing.JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) btnDentroActionPerformed(null);
             }
         });
-    }
+            configurarTeclado(); }
    private void actualizarAforo() {
         LabelAforo.setText(String.valueOf(empresa.getCantidadAforoActual()));
     }
@@ -114,7 +114,18 @@ public class pnAforo extends javax.swing.JPanel {
                 .addGap(52, 52, 52))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+private void configurarTeclado() {
+    txtDni.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                btnDentro.requestFocus(); // Deja el foco preparado en el botón de Entrar
+            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                txtDni.setText(""); // Limpia el DNI
+            }
+        }
+    });
+}
     private void btnFueraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFueraActionPerformed
 if (empresa.checkOut(txtDni.getText())) {
             JOptionPane.showMessageDialog(this, "Salida registrada");

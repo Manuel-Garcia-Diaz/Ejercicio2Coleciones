@@ -46,6 +46,7 @@ public class Operaciones extends javax.swing.JFrame {
         MenuItemAltaClientes = new javax.swing.JMenuItem();
         MenuItemManteRutinas = new javax.swing.JMenuItem();
         MenuItemHistorial = new javax.swing.JMenuItem();
+        jMenuItemEntrenamientos = new javax.swing.JMenuItem();
         MenuSalir = new javax.swing.JMenu();
         MenuItemDesconectar = new javax.swing.JMenuItem();
 
@@ -85,6 +86,14 @@ public class Operaciones extends javax.swing.JFrame {
             }
         });
         MenuOperraciones.add(MenuItemHistorial);
+
+        jMenuItemEntrenamientos.setText("Alta Entrenamientos");
+        jMenuItemEntrenamientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEntrenamientosActionPerformed(evt);
+            }
+        });
+        MenuOperraciones.add(jMenuItemEntrenamientos);
 
         jMenuBar1.add(MenuOperraciones);
 
@@ -134,8 +143,12 @@ public class Operaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void MenuItemDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemDesconectarActionPerformed
-     //cambiarPanel(new pnEntrenamiento(empresa));
+     
     }//GEN-LAST:event_MenuItemDesconectarActionPerformed
+
+    private void jMenuItemEntrenamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntrenamientosActionPerformed
+        cambiarPanel(new pnEntrenamientos(empresa));
+    }//GEN-LAST:event_jMenuItemEntrenamientosActionPerformed
 
    
     
@@ -149,6 +162,7 @@ public class Operaciones extends javax.swing.JFrame {
     private javax.swing.JMenu MenuSalir;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemEntrenamientos;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -31,7 +31,7 @@ public class Empresa {
         mapaRutinas.put("A", new Rutina("A", "Hipertrofia Pierna", "Intermedio", "Día de pierna"));
     }
 
-    // --- Alta Clientes ---
+    //Alta Clientes 
     public boolean altaCliente(String dni, String nombre, String suscripcion) {
         if (!mapaClientes.containsKey(dni)) {
             mapaClientes.put(dni, new Cliente(dni, nombre, suscripcion));
@@ -58,7 +58,7 @@ private String generarMD5(String password) {
         return null;
     }
 }
-    // --- Control Aforo ---
+    //  Control Aforo 
     public boolean checkIn(String dni) {
         if (mapaClientes.containsKey(dni) && !aforoActual.contains(dni)) {
             aforoActual.add(dni);
@@ -69,15 +69,15 @@ private String generarMD5(String password) {
     public boolean checkOut(String dni) { return aforoActual.remove(dni); }
     public int getCantidadAforoActual() { return aforoActual.size(); }
 
-    // --- Rutinas ---
+    // Rutinas 
     public void addRutina(Rutina r) { mapaRutinas.put(r.getCodRutina(), r); }
     public Rutina getRutina(String cod) { return mapaRutinas.get(cod); }
 
-    // --- Getters generales ---
+    //Getters 
     public Cliente getCliente(String dni) { return mapaClientes.get(dni); }
     public Map<String, Rutina> getMapaRutinas() { return mapaRutinas; }
     
-    // --- Login ---
+    // --- Login 
     public void setUsuarioLogueado(Usuario u) { this.usuarioLogueado = u; }
     public Usuario getUsuarioLogueado() { return usuarioLogueado; }
 }

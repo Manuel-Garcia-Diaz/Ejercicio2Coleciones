@@ -119,7 +119,7 @@ private void configurarTeclado() {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                btnDentro.requestFocus(); // Deja el foco preparado en el botón de Entrar
+                btnDentro.requestFocus(); // Deja el foco preparado en el botón de entrar
             } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 txtDni.setText(""); // Limpia el DNI
             }

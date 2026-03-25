@@ -7,7 +7,7 @@ package Datos;
 
 
 public class Usuario {
-    private String nombreUsuario; // Añadido para mejor identificación
+    private String nombreUsuario; 
     private String contraHash; // Contraseña en MD5
     private int perfil; // 1: Recepcionista, 2: Entrenador, 3: Gerente
 

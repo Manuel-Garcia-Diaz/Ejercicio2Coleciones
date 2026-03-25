@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class pnEntrenamientos extends javax.swing.JPanel {
 
     private Empresa empresa;
-    private Cliente clienteActual; // Guardaremos aquí el cliente cuando se busque
+    private Cliente clienteActual; // Guardamos aqui el cliente cuando se busque
     public pnEntrenamientos(Empresa empresa) {
         initComponents();
         this.empresa = empresa;
@@ -29,7 +29,7 @@ public class pnEntrenamientos extends javax.swing.JPanel {
         configurarTeclado();
     }
     private void cargarRutinasDisponibles() {
-        // Cambia 'CmbRutinas' por el nombre real de tu JComboBox
+        
         CmbRutinas.removeAllItems();
         
         // Recorremos las rutinas creadas en la Empresa y las añadimos
@@ -39,7 +39,7 @@ public class pnEntrenamientos extends javax.swing.JPanel {
     }
     private void configurarTeclado() {
         
-        // Eventos para el campo DNI
+        //  campo DNI
         txtDni.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -52,7 +52,7 @@ public class pnEntrenamientos extends javax.swing.JPanel {
             }
         });
 
-        // Eventos para el campo Peso
+        //  campo Peso
         txtPeso.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -64,7 +64,7 @@ public class pnEntrenamientos extends javax.swing.JPanel {
             }
         });
 
-        // Eventos para el campo Series
+        //  campo Series
         txtSeries.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -76,7 +76,7 @@ public class pnEntrenamientos extends javax.swing.JPanel {
             }
         });
 
-        // Eventos para el campo Repeticiones
+        //  campo Repeticiones
         txtRepeticiones.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -93,7 +93,7 @@ public class pnEntrenamientos extends javax.swing.JPanel {
         clienteActual = empresa.getCliente(dni);
 
         if (clienteActual != null) {
-            // Suponiendo que tienes un JLabel (lblNombre) para confirmar a quién le asignas la rutina
+            
             lblNombre.setText("Cliente: " + clienteActual.getNombre());
         } else {
             JOptionPane.showMessageDialog(this, "Cliente no encontrado. Compruebe el DNI.");
@@ -242,17 +242,17 @@ if (clienteActual == null) {
         }
 
         try {
-            // 1. Extraer la rutina seleccionada del ComboBox
+            //  Extraer la rutina seleccionada del ComboBox
             String seleccion = CmbRutinas.getSelectedItem().toString();
             String codRutina = seleccion.split(" - ")[0]; // Obtenemos la parte antes del guion
             Rutina rutinaSeleccionada = empresa.getRutina(codRutina);
 
-            // 2. Extraer los datos numéricos
+            //  Extraer los datos numericos
             int peso = Integer.parseInt(txtPeso.getText().trim());
             int series = Integer.parseInt(txtSeries.getText().trim());
             int repeticiones = Integer.parseInt(txtRepeticiones.getText().trim());
 
-            // 3. Crear el entrenamiento y guardarlo en el historial del cliente
+            // Crear el entrenamiento y guardarlo en el historial del cliente
             Entrenamiento nuevoEntreno = new Entrenamiento(LocalDate.now(), rutinaSeleccionada, peso, series, repeticiones);
             clienteActual.registrarEntrenamiento(nuevoEntreno);
 
@@ -269,19 +269,19 @@ if (clienteActual == null) {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       // Borramos todo lo escrito en los JTextFields
+       // Borramos todo lo escrito en los JTextfields
         txtDni.setText("");
         txtPeso.setText("");
         txtSeries.setText("");
         txtRepeticiones.setText("");
         
-        // Reiniciamos la búsqueda
+        // Reiniciamos la busqueda
         if (lblNombre != null) {
             lblNombre.setText("Cliente: ---");
         }
         clienteActual = null;
         
-        // Reiniciamos el desplegable a la primera opción
+        // Reiniciamos el desplegable a la primera opcion
         if (CmbRutinas.getItemCount() > 0) {
             CmbRutinas.setSelectedIndex(0);
         }

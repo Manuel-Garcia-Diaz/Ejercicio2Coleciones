@@ -37,7 +37,7 @@ public class pnHistorial extends javax.swing.JPanel {
         });
     }
     private void actualizarTablaHistorial() {
-    // 1. Obtenemos el modelo de la tabla (sustituye jTable1 por el nombre de tu tabla si lo cambiaste)
+    //  Obtenemos el modelo de la tabla 
     DefaultTableModel modelo = (DefaultTableModel) TablaHistorial.getModel();
     
     // 2. Limpiamos la tabla borrando todas las filas anteriores

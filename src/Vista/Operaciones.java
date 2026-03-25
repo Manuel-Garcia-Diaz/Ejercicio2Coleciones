@@ -29,7 +29,7 @@ public class Operaciones extends javax.swing.JFrame {
         // Rol 3 (Gerente) ve todo
     }
 
-    // Lógica para cambiar paneles dinámicamente
+    //  cambiar paneles dinámicamente (usar todos los paneles )
     private void cambiarPanel(JPanel panel) {
         this.getContentPane().removeAll();
         this.getContentPane().add(panel, BorderLayout.CENTER);
@@ -152,13 +152,13 @@ public class Operaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void MenuItemDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemDesconectarActionPerformed
-    // 1. Creamos una nueva ventana de Login
+    //  Creamos una nueva ventana de Login
     Login ventanaLogin = new Login();
     
-    // 2. La hacemos visible en la pantalla
+    //  La hacemos visible en la pantalla
     ventanaLogin.setVisible(true);
     
-    // 3. Cerramos y destruimos la ventana actual de Operaciones
+    //  Cerramos y destruimos la ventana actual de Operaciones
     this.dispose();
     }//GEN-LAST:event_MenuItemDesconectarActionPerformed
 
@@ -167,7 +167,7 @@ public class Operaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEntrenamientosActionPerformed
 
     private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
-      System.exit(0);
+      System.exit(0); // salir del programa
     }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
    

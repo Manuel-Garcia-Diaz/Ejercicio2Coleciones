@@ -46,7 +46,7 @@ public class pnAltaClientes extends javax.swing.JPanel {
 
     
     
-    // [Aquí iría tu código generado por NetBeans de initComponents()]
+    
 
 
 
@@ -159,7 +159,7 @@ public class pnAltaClientes extends javax.swing.JPanel {
     // Ponemos el cursor en el primer campo
     txtDni.requestFocus();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+//Registra el cliente agarrando los datos
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
       String dni = txtDni.getText();
         String nombre = txtNombre.getText();

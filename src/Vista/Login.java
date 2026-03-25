@@ -19,10 +19,10 @@ import javax.swing.JOptionPane;
         this.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         this.setTitle("SmartFit - Acceso");
         
-        // 1. Instanciamos la EMPRESA por única vez en todo el programa
+        //  Instanciamos  empresa por única vez en todo el programa
         empresa = new Empresa();
         
-        // 2. Cargamos los datos iniciales (Colecciones de usuarios y rutinas base)
+        //  Cargamos los datos iniciales Colecciones de usuarios y rutinas (base)
         empresa.cargarUsuarios();
         empresa.cargarRutina();
          configurarTeclado();}
@@ -83,7 +83,7 @@ private void configurarTeclado() {
         }
     });
 }
-                                     
+   // Metodo Generar hash MD5                                  
 private String generarMD5(String password) {
     try {
         java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
@@ -218,10 +218,10 @@ String User = txtUsuario.getText();
         // Verificamos si existe y si el hash coincide
         if (usuarioEncontrado != null && usuarioEncontrado.getContraHash().equals(hashIntroducido)) {
             
-            // 1. Guardamos quién se ha logueado para controlar los permisos luego
+            //  Guardamos  el quién se ha logueado para controlar los permisos luego
             empresa.setUsuarioLogueado(usuarioEncontrado);
             
-            //  Abrimos la ventana de Operaciones PASÁNDOLE LA EMPRESA
+            //  Abrimos la ventana de Operaciones pasandole la empresa
             Operaciones ventanaPrincipal = new Operaciones(empresa);
             ventanaPrincipal.setVisible(true);
             
